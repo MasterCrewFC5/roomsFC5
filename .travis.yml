@@ -8,7 +8,6 @@ cache:
   directories:
   - node_modules
 before_install:
-- sudo apt install -y sshpass
 - openssl aes-256-cbc -K $encrypted_f426b365063b_key -iv $encrypted_f426b365063b_iv
   -in deploy_key.enc -out ./deploy_key -d
 - eval "$(ssh-agent -s)"
