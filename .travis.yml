@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - node
+sudo: true
 install:
 - npm install
 script: echo "npm test temporarily disabled"
@@ -8,10 +9,12 @@ cache:
   directories:
   - node_modules
 before_install:
+- sudo apt update
+- sudo apt install -y sshpass
 - openssl aes-256-cbc -K $encrypted_f426b365063b_key -iv $encrypted_f426b365063b_iv
   -in deploy_key.enc -out ./deploy_key -d
 - eval "$(ssh-agent -s)"
 - chmod 600 ./deploy_key
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- echo $PASSPHRASE | ssh-add ./deploy_key
+- sshpass -p $PASSPHRASE ssh-add ./deploy_key
 - ssh -i ./deploy_key $USER@$ADDR_IP pwd
