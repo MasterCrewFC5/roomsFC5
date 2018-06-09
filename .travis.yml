@@ -24,4 +24,4 @@ after_success:
 - mv * build
 - ls -lah build/
 - export SSHPASS=$DEPLOY_PASS
-- sshpass -e scp -r build/ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+- sshpass -p $DEPLOY_PASS -e scp -o StrictHostKeyChecking=no -r build/ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
